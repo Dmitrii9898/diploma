@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Новости — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Новости</h1>
+{% for item in items %}
+<article class="card card-soft mb-3">
+    <div class="card-body">
+        <div class="small text-secondary">{{ item.published_at|date:"d.m.Y" }}</div>
+        <h2 class="h5"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+        <p class="mb-0">{{ item.summary }}</p>
+    </div>
+</article>
+{% empty %}
+<p>Публикаций нет.</p>
+{% endfor %}
+{% endblock %}

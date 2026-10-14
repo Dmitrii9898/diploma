@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Журнал — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Журнал действий</h1>
+<div class="table-responsive card card-soft"><table class="table mb-0">
+    <thead><tr><th>Когда</th><th>Кто</th><th>Описание</th><th>Действие</th></tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.created_at|date:"d.m.Y H:i" }}</td>
+        <td>{{ item.user|default:"—" }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.action }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table></div>
+{% endblock %}

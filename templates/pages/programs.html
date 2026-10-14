@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Программы — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Образовательные программы</h1>
+<form class="row g-2 mb-3" method="get">
+    <div class="col-md-4">
+        <select class="form-select" name="institute" onchange="this.form.submit()">
+            <option value="">Все институты</option>
+            {% for institute in institutes %}
+            <option value="{{ institute.code }}" {% if current == institute.code %}selected{% endif %}>{{ institute.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+<div class="table-responsive card card-soft">
+    <table class="table mb-0">
+        <thead><tr><th>Код</th><th>Программа</th><th>Форма</th><th>Уровень</th><th>Стоимость, руб./год</th></tr></thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.code }}</td>
+            <td><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
+            <td>{{ item.study_form }}</td>
+            <td>{{ item.level }}</td>
+            <td>{{ item.tuition_rub }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Программы не найдены.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

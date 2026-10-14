@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Новая заявка — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Заявка на договор</h1>
+<form method="post" enctype="multipart/form-data" class="col-lg-7">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="text-danger small">{{ field.errors|join:", " }}</div>{% endif %}
+    </div>
+    {% endfor %}
+    <button class="btn btn-gold" type="submit">Отправить</button>
+</form>
+{% endblock %}

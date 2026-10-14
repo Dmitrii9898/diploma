@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Реестр договоров — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h1 class="h3 mb-0">Реестр договоров</h1>
+    <a class="btn btn-gold" href="{% url 'contracts:contract_add' %}">Новый договор</a>
+</div>
+<div class="table-responsive card card-soft"><table class="table mb-0">
+    <thead><tr><th>Номер</th><th>Обучающийся</th><th>Программа</th><th>Статус</th><th>Сумма</th><th>Долг</th></tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td><a href="{% url 'contracts:contract_detail' item.pk %}">{{ item.number }}</a></td>
+        <td>{{ item.student }}</td>
+        <td>{{ item.program.name }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.amount_rub }}</td>
+        <td>{{ item.debt_rub }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table></div>
+{% endblock %}

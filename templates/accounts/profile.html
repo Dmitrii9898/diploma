@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Профиль — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Профиль</h1>
+<form method="post" class="col-lg-6">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+    <button class="btn btn-gold" type="submit">Сохранить</button>
+</form>
+{% endblock %}

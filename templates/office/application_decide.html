@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Заявка {{ item.pk }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Заявка № {{ item.pk }}</h1>
+<p>{{ item.user }} — {{ item.user.email }}. Программа: {{ item.program.name }}. Статус: {{ item.get_status_display }}.</p>
+{% if item.comment %}<p>Комментарий: {{ item.comment }}</p>{% endif %}
+{% if item.passport_scan %}<p><a href="{{ item.passport_scan.url }}">Скан, приложенный к заявке</a></p>{% endif %}
+{% if item.contract %}<p>Уже создан договор <a href="{% url 'contracts:contract_detail' item.contract.pk %}">{{ item.contract.number }}</a>.</p>{% endif %}
+{% if item.status != "approved" and item.status != "rejected" %}
+<form method="post" class="col-lg-7">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+    <button class="btn btn-gold" name="action" value="approve" type="submit">Одобрить и создать договор</button>
+    <button class="btn btn-outline-danger" name="action" value="reject" type="submit">Отклонить</button>
+</form>
+{% endif %}
+{% endblock %}

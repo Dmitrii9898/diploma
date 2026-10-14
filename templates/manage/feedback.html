@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Обращения — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Обратная связь</h1>
+{% for item in items %}
+<article class="card card-soft mb-3"><div class="card-body">
+    <strong>{{ item.subject }}</strong> — {{ item.name }} ({{ item.email }})
+    <div class="small text-secondary">{{ item.created_at|date:"d.m.Y H:i" }} · {% if item.is_processed %}обработано{% else %}новое{% endif %}</div>
+    <p>{{ item.message }}</p>
+    {% if not item.is_processed %}
+    <form method="post">{% csrf_token %}<input type="hidden" name="feedback_id" value="{{ item.pk }}"><button class="btn btn-sm btn-gold" type="submit">Отметить обработанным</button></form>
+    {% endif %}
+</div></article>
+{% endfor %}
+{% endblock %}

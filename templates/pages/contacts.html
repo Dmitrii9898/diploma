@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Контакты — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <h1 class="h3">Контакты</h1>
+        <p>Договорной отдел финансово-экономического управления. Для учебной демонстрации указан общий канал университета.</p>
+        <p>ЧОУ ВО «Московский университет им. С.Ю. Витте»<br>Москва<br>Эл. почта отдела в демонстрации: dogovor@muiv.example</p>
+        <p>Форма ниже сохраняет обращение в базе. Администратор отмечает его обработанным.</p>
+    </div>
+    <div class="col-lg-7">
+        <div class="card card-soft">
+            <div class="card-body">
+                <h2 class="h5">Обратная связь</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="text-danger small">{{ field.errors|join:", " }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-gold" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

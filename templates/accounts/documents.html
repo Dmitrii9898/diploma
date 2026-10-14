@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Мои документы — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Мои документы</h1>
+<h2 class="h5">Сканы договоров</h2>
+<ul>{% for item in scans %}<li><a href="{{ item.scan.url }}">{{ item.number }}</a></li>{% empty %}<li>Сканов нет.</li>{% endfor %}</ul>
+<h2 class="h5">Дополнительные файлы</h2>
+<ul>{% for row in files %}<li><a href="{{ row.file.url }}">{{ row.contract.number }} — {{ row.title }}</a></li>{% empty %}<li>Файлов нет.</li>{% endfor %}</ul>
+{% endblock %}

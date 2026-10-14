@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Мои платежи — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Мои платежи</h1>
+<h2 class="h5">График</h2>
+<div class="table-responsive card card-soft mb-4"><table class="table mb-0">
+    <thead><tr><th>Договор</th><th>Срок</th><th>Назначение</th><th>Сумма</th><th>Статус</th></tr></thead>
+    <tbody>
+    {% for row in schedule %}
+    <tr>
+        <td>{{ row.contract.number }}</td>
+        <td>{{ row.due_on|date:"d.m.Y" }}</td>
+        <td>{{ row.title }}</td>
+        <td>{{ row.amount_rub }}</td>
+        <td>{% if row.is_paid %}Оплачен{% else %}Ожидается{% endif %}</td>
+    </tr>
+    {% empty %}<tr><td colspan="5">Графика нет.</td></tr>{% endfor %}
+    </tbody>
+</table></div>
+<h2 class="h5">Поступления</h2>
+<ul>{% for row in items %}<li>{{ row.paid_on|date:"d.m.Y" }} — {{ row.contract.number }} — {{ row.amount_rub }} руб.</li>{% empty %}<li>Поступлений нет.</li>{% endfor %}</ul>
+{% endblock %}

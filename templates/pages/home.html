@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Главная — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<section class="hero mb-4">
+    <h1 class="h2">Договоры на обучение — в одном сервисе</h1>
+    <p class="mt-3">Подайте заявку, следите за статусом договора и графиком платежей. Договорной отдел видит реестр, задолженность и обращения без таблиц в почте.</p>
+    <a class="btn btn-gold" href="{% url 'pages:howto' %}">Как заключить договор</a>
+    <a class="btn btn-outline-light ms-2" href="{% url 'pages:program_list' %}">Смотреть программы</a>
+</section>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="kpi"><strong>3 роли</strong><span>обучающийся, специалист, администратор</span></div></div>
+    <div class="col-md-4"><div class="kpi"><strong>График</strong><span>два семестровых платежа по каждому договору</span></div></div>
+    <div class="col-md-4"><div class="kpi"><strong>Отчёты</strong><span>выгрузка реестра в Excel и Word</span></div></div>
+</div>
+<h2 class="h4 mb-3">Программы с открытым приёмом</h2>
+<div class="row g-3 mb-4">
+    {% for program in programs %}
+    <div class="col-md-6">
+        <div class="card card-soft h-100">
+            <div class="card-body">
+                <div class="text-secondary small">{{ program.code }} · {{ program.study_form }}</div>
+                <h3 class="h5"><a href="{{ program.get_absolute_url }}">{{ program.name }}</a></h3>
+                <p class="mb-0">{{ program.tuition_rub }} руб. в год</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Список программ появится после наполнения справочника.</p>
+    {% endfor %}
+</div>
+<h2 class="h4 mb-3">Новости договорного отдела</h2>
+<ul class="list-group">
+    {% for item in news %}
+    <li class="list-group-item">
+        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+        <div class="small text-secondary">{{ item.published_at|date:"d.m.Y" }} — {{ item.summary }}</div>
+    </li>
+    {% empty %}
+    <li class="list-group-item">Новостей пока нет.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

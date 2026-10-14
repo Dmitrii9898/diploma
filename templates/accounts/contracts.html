@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Мои договоры — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Мои договоры</h1>
+<div class="table-responsive card card-soft"><table class="table mb-0">
+    <thead><tr><th>Номер</th><th>Программа</th><th>Статус</th><th>Сумма</th><th>Долг</th></tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td><a href="{% url 'accounts:contract_detail' item.pk %}">{{ item.number }}</a></td>
+        <td>{{ item.program.name }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.amount_rub }}</td>
+        <td>{{ item.debt_rub }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">Договоров пока нет.</td></tr>
+    {% endfor %}
+    </tbody>
+</table></div>
+{% endblock %}

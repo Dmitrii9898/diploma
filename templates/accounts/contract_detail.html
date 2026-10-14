@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ item.number }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Договор {{ item.number }}</h1>
+<p>{{ item.program.name }}. Статус: {{ item.status }}. Плательщик: {{ item.payer }}.</p>
+<p>Период: {{ item.starts_on|date:"d.m.Y" }} — {{ item.ends_on|date:"d.m.Y" }}. Сумма за год: {{ item.amount_rub }} руб. Оплачено: {{ item.paid_rub }} руб.</p>
+{% if item.scan %}<p><a href="{{ item.scan.url }}">Скачать скан договора</a></p>{% endif %}
+<h2 class="h5">График</h2>
+<ul>{% for row in installments %}<li>{{ row.due_on|date:"d.m.Y" }} — {{ row.title }} — {{ row.amount_rub }} руб. {% if row.is_paid %}(оплачен){% else %}(ожидается){% endif %}</li>{% endfor %}</ul>
+<h2 class="h5">Платежи</h2>
+<ul>{% for row in payments %}<li>{{ row.paid_on|date:"d.m.Y" }} — {{ row.amount_rub }} руб. — {{ row.purpose }}</li>{% empty %}<li>Платежей нет.</li>{% endfor %}</ul>
+<h2 class="h5">Файлы</h2>
+<ul>{% for row in files %}<li><a href="{{ row.file.url }}">{{ row.title }}</a></li>{% empty %}<li>Дополнительных файлов нет.</li>{% endfor %}</ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Программы — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Стоимость программ</h1>
+<div class="table-responsive card card-soft"><table class="table mb-0">
+    <thead><tr><th>Программа</th><th>Институт</th><th>Стоимость</th></tr></thead>
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.institute.short_name }}</td>
+        <td>
+            <form method="post" class="d-flex gap-2">
+                {% csrf_token %}
+                <input type="hidden" name="program_id" value="{{ item.pk }}">
+                <input class="form-control form-control-sm" name="tuition_rub" value="{{ item.tuition_rub }}">
+                <button class="btn btn-sm btn-gold" type="submit">OK</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table></div>
+{% endblock %}

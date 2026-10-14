@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Отчёты — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Отчёты</h1>
+<p>В реестре {{ count }} договоров. Просроченных строк графика: {{ overdue|length }}.</p>
+<a class="btn btn-gold" href="?format=xlsx">Скачать Excel</a>
+<a class="btn btn-outline-secondary" href="?format=docx">Скачать Word</a>
+{% endblock %}

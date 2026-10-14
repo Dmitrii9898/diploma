@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ item.number }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">{{ item.number }}</h1>
+<p>{{ item.student }} · {{ item.program.name }} · {{ item.status }}</p>
+<p>Сумма {{ item.amount_rub }} руб., оплачено {{ item.paid_rub }} руб., долг {{ item.debt_rub }} руб.</p>
+{% if item.scan %}<p><a href="{{ item.scan.url }}">Скан договора</a></p>{% endif %}
+<h2 class="h5">График</h2>
+<ul>{% for row in installments %}<li>{{ row.due_on|date:"d.m.Y" }} — {{ row.title }} — {{ row.amount_rub }} {% if row.is_paid %}оплачен{% endif %}</li>{% empty %}<li>График не задан.</li>{% endfor %}</ul>
+<h2 class="h5">Платежи</h2>
+<ul>{% for row in payments %}<li>{{ row.paid_on|date:"d.m.Y" }} — {{ row.amount_rub }} — {{ row.method }}</li>{% empty %}<li>Нет.</li>{% endfor %}</ul>
+<h2 class="h5">Файлы</h2>
+<ul>{% for row in files %}<li><a href="{{ row.file.url }}">{{ row.title }}</a></li>{% endfor %}</ul>
+<form method="post" enctype="multipart/form-data" class="col-lg-6 mt-3">
+    {% csrf_token %}
+    <input type="hidden" name="upload" value="1">
+    {% for field in file_form %}
+    <div class="mb-3"><label class="form-label">{{ field.label }}</label>{{ field }}</div>
+    {% endfor %}
+    <button class="btn btn-gold" type="submit">Загрузить файл</button>
+</form>
+{% endblock %}

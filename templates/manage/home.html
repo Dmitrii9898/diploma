@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Администрирование — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Администрирование</h1>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="kpi"><strong>{{ users }}</strong>пользователей</div></div>
+    <div class="col-md-4"><div class="kpi"><strong>{{ programs }}</strong>программ</div></div>
+    <div class="col-md-4"><div class="kpi"><strong>{{ feedback }}</strong>необработанных обращений</div></div>
+</div>
+<div class="d-flex flex-wrap gap-2">
+    <a class="btn btn-gold" href="{% url 'contracts:manage_users' %}">Пользователи</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:manage_programs' %}">Программы</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:manage_news' %}">Новости</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:manage_feedback' %}">Обращения</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:manage_audit' %}">Журнал</a>
+    <a class="btn btn-outline-secondary" href="/admin/">Django-admin</a>
+</div>
+{% endblock %}

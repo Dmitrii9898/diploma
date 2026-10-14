@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="small text-secondary">{{ item.published_at|date:"d.m.Y" }}</div>
+<h1 class="h3">{{ item.title }}</h1>
+<p style="white-space: pre-line;">{{ item.body }}</p>
+{% endblock %}

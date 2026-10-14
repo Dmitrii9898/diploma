@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Личный кабинет</h1>
+<p>Здравствуйте, {{ user.full_name|default:user.username }}. Роль: {{ user.role_name|default:"не назначена" }}.</p>
+<div class="row g-3 mb-4">
+    <div class="col-md-4"><div class="kpi"><strong>{{ contracts|length }}</strong>договоров</div></div>
+    <div class="col-md-4"><div class="kpi"><strong>{{ applications|length }}</strong>заявок</div></div>
+    <div class="col-md-4"><div class="kpi"><strong>{% if next_payment %}{{ next_payment.due_on|date:"d.m.Y" }}{% else %}—{% endif %}</strong>ближайший платёж</div></div>
+</div>
+<div class="d-flex flex-wrap gap-2">
+    <a class="btn btn-gold" href="{% url 'accounts:application_new' %}">Новая заявка</a>
+    <a class="btn btn-outline-secondary" href="{% url 'accounts:applications' %}">Мои заявки</a>
+    <a class="btn btn-outline-secondary" href="{% url 'accounts:contracts' %}">Мои договоры</a>
+    <a class="btn btn-outline-secondary" href="{% url 'accounts:payments' %}">Мои платежи</a>
+    <a class="btn btn-outline-secondary" href="{% url 'accounts:documents' %}">Мои документы</a>
+    <a class="btn btn-outline-secondary" href="{% url 'accounts:profile' %}">Профиль</a>
+</div>
+{% endblock %}

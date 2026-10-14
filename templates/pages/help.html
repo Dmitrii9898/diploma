@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Справка — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Справка</h1>
+<p>Веб-сервис «{{ SITE_NAME }}» ({{ SITE_CODE }}) разработан в рамках выпускной квалификационной работы.</p>
+<ul>
+    <li>Автор: {{ AUTHOR_NAME }}</li>
+    <li>Идентификатор: {{ AUTHOR_ID }}</li>
+    <li>Тема: {{ VKR_TOPIC }}</li>
+</ul>
+<p>Демонстрационные учётные записи создаются командой <code>python manage.py seed_demo</code> и перечислены в файле README.</p>
+{% endblock %}

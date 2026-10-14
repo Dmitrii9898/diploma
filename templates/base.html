@@ -1,0 +1,94 @@
+{% load static %}<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-dark brand-nav">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'pages:home' %}">Договор<span>.Онлайн</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav" aria-label="Меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainnav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:home' %}">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:about' %}">О сервисе</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:program_list' %}">Программы</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:pricing' %}">Стоимость</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:howto' %}">Как заключить</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:news_list' %}">Новости</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:documents' %}">Документы</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:faq' %}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:glossary' %}">Глоссарий</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:contacts' %}">Контакты</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    {% if user.is_specialist_role or user.is_admin_role %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contracts:dashboard' %}">Отдел</a></li>
+                    {% endif %}
+                    {% if user.is_admin_role %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contracts:manage_home' %}">Админ</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:cabinet' %}">Кабинет</a></li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-light btn-sm mt-1" type="submit">Выйти</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Вход</a></li>
+                    <li class="nav-item"><a class="btn btn-gold btn-sm mt-1 ms-lg-2" href="{% url 'accounts:register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<nav aria-label="breadcrumb" class="crumb-bar">
+    <ol class="breadcrumb container mb-0 py-2">
+        {% if is_home %}
+        <li class="breadcrumb-item active" aria-current="page">Главная</li>
+        {% else %}
+        <li class="breadcrumb-item"><a href="{% url 'pages:home' %}">Главная</a></li>
+        {% for title, link in breadcrumbs %}
+            {% if link %}
+            <li class="breadcrumb-item"><a href="{{ link }}">{{ title }}</a></li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    </ol>
+</nav>
+<main class="container my-4 flex-grow-1">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</main>
+<footer class="site-footer mt-auto">
+    <div class="container py-4 d-flex flex-wrap justify-content-between gap-3">
+        <div>
+            <strong>{{ SITE_NAME }}</strong>
+            <div class="small">Веб-сервис учёта договоров на платные образовательные услуги.</div>
+            <div class="small">Автор: {{ AUTHOR_NAME }}, ID {{ AUTHOR_ID }}.</div>
+        </div>
+        <div class="small">
+            <a href="{% url 'pages:help' %}">Справка</a><br>
+            <a href="{% url 'pages:documents' %}">Документы</a><br>
+            <a href="{% url 'pages:contacts' %}">Обратная связь</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

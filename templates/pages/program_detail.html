@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ item.name }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<p class="text-secondary mb-1">{{ item.code }} · {{ item.institute }}</p>
+<h1 class="h3">{{ item.name }}</h1>
+<p>{{ item.description }}</p>
+<ul>
+    <li>Уровень: {{ item.level }}</li>
+    <li>Форма обучения: {{ item.study_form }}</li>
+    <li>Срок: {{ item.duration_years }} лет</li>
+    <li>Стоимость за учебный год: {{ item.tuition_rub }} руб.</li>
+</ul>
+<a class="btn btn-gold" href="{% url 'accounts:application_new' %}">Подать заявку</a>
+{% endblock %}

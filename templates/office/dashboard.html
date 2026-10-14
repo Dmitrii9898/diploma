@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Договорной отдел — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<h1 class="h3">Договорной отдел</h1>
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="kpi"><strong>{{ active_count }}</strong>действующих договоров</div></div>
+    <div class="col-md-3"><div class="kpi"><strong>{{ amount }}</strong>сумма действующих, руб.</div></div>
+    <div class="col-md-3"><div class="kpi"><strong>{{ paid }}</strong>поступило, руб.</div></div>
+    <div class="col-md-3"><div class="kpi"><strong>{{ new_applications }}</strong>заявок на рассмотрении</div></div>
+</div>
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-gold" href="{% url 'contracts:applications' %}">Заявки</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:contracts' %}">Реестр</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:payments' %}">Платежи</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:payers' %}">Плательщики</a>
+    <a class="btn btn-outline-secondary" href="{% url 'contracts:reports' %}">Отчёты</a>
+</div>
+<div class="row g-4">
+    <div class="col-lg-6">
+        <h2 class="h5">Просроченные строки графика</h2>
+        <ul>{% for row in overdue %}<li>{{ row.contract.number }} — {{ row.title }} — срок {{ row.due_on|date:"d.m.Y" }}</li>{% empty %}<li>Просрочки нет.</li>{% endfor %}</ul>
+    </div>
+    <div class="col-lg-6">
+        <h2 class="h5">Договоры по программам</h2>
+        <ul>{% for row in by_program %}<li>{{ row.name }} — {{ row.total }}</li>{% endfor %}</ul>
+    </div>
+</div>
+{% endblock %}
