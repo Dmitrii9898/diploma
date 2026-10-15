@@ -9,24 +9,11 @@
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark brand-nav">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'pages:home' %}">Договор<span>.Онлайн</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav" aria-label="Меню">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainnav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:home' %}">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:about' %}">О сервисе</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:program_list' %}">Программы</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:pricing' %}">Стоимость</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:howto' %}">Как заключить</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:news_list' %}">Новости</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:documents' %}">Документы</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:faq' %}">FAQ</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:glossary' %}">Глоссарий</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pages:contacts' %}">Контакты</a></li>
-            </ul>
-            <ul class="navbar-nav">
+        <input class="nav-toggle" id="nav-toggle" type="checkbox">
+        <div class="nav-top">
+            <a class="navbar-brand" href="{% url 'pages:home' %}">Договор<span>.Онлайн</span></a>
+            <label class="nav-burger" for="nav-toggle"><span class="when-closed">Меню</span><span class="when-open">Закрыть</span></label>
+            <ul class="navbar-nav nav-auth">
                 {% if user.is_authenticated %}
                     {% if user.is_specialist_role or user.is_admin_role %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'contracts:dashboard' %}">Отдел</a></li>
@@ -38,13 +25,27 @@
                     <li class="nav-item">
                         <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
                             {% csrf_token %}
-                            <button class="btn btn-outline-light btn-sm mt-1" type="submit">Выйти</button>
+                            <button class="btn btn-outline-light btn-sm" type="submit">Выйти</button>
                         </form>
                     </li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Вход</a></li>
-                    <li class="nav-item"><a class="btn btn-gold btn-sm mt-1 ms-lg-2" href="{% url 'accounts:register' %}">Регистрация</a></li>
+                    <li class="nav-item"><a class="btn btn-gold btn-sm" href="{% url 'accounts:register' %}">Регистрация</a></li>
                 {% endif %}
+            </ul>
+        </div>
+        <div class="navbar-collapse" id="mainnav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:home' %}">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:about' %}">О сервисе</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:program_list' %}">Программы</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:pricing' %}">Стоимость</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:howto' %}">Как заключить</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:news_list' %}">Новости</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:documents' %}">Документы</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:faq' %}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:glossary' %}">Глоссарий</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pages:contacts' %}">Контакты</a></li>
             </ul>
         </div>
     </div>

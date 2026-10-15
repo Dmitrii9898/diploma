@@ -56,11 +56,12 @@ img { max-width: 100%; }
 
 .brand-nav .container {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.75rem 1.5rem;
-    padding: 0.7rem 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    padding: 0.85rem 0 0.55rem;
 }
+.nav-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
 .navbar-brand {
     color: #fff;
@@ -70,8 +71,11 @@ img { max-width: 100%; }
 }
 
 .navbar-brand span { color: var(--gold); }
-.navbar-toggler { display: none; }
-.navbar-collapse { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; flex: 1; }
+.nav-toggle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.nav-burger, .when-open { display: none; }
+.nav-burger { cursor: pointer; }
+.navbar-collapse { display: flex; width: 100%; padding-top: 0.35rem; border-top: 1px solid rgba(255,255,255,.18); }
+.nav-auth { flex-wrap: nowrap; align-items: center; }
 .navbar-nav { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; list-style: none; margin: 0; padding: 0; }
 .nav-link { color: #f6efe8; text-decoration: none; }
 .nav-link:hover { color: #fff; }
@@ -174,6 +178,13 @@ dl dt { font-weight: 700; margin-top: 0.8rem; }
 ol, ul { padding-left: 1.2rem; }
 
 @media (max-width: 720px) {
-    .navbar-nav { flex-direction: column; gap: 0.2rem; }
+    .nav-top { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.45rem 0.75rem; }
+    .nav-burger { display: inline-flex; color: #fff; border: 1px solid rgba(255,255,255,.45); border-radius: 8px; padding: 0.25rem 0.6rem; font-size: 0.9rem; }
+    .nav-auth { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; }
+    .navbar-collapse { display: none; }
+    .nav-toggle:checked ~ .navbar-collapse { display: flex; }
+    .nav-toggle:checked ~ .nav-top .when-closed { display: none; }
+    .nav-toggle:checked ~ .nav-top .when-open { display: inline; }
+    .navbar-collapse .navbar-nav { flex-direction: column; align-items: flex-start; gap: 0.35rem; width: 100%; }
     .hero { padding: 1.4rem 1rem; }
 }

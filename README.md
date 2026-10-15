@@ -53,4 +53,4 @@ python scripts/smoke.py
 
 Репозиторий: https://github.com/Dmitrii9898/diploma
 
-Бесплатный хостинг публикуется из этого репозитория. Ссылку на сайт нужно вписать в отчёт после размещения.
+Сайт: https://educontract.onrender.com
